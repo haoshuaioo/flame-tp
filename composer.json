@@ -1,0 +1,56 @@
+{
+  "name": "hnraytek/flame-tp",
+  "description": "Flame TP skeleton. Install modules to grow your app.",
+  "type": "project",
+  "keywords": [
+    "thinkphp",
+    "module",
+    "modular",
+    "plugin",
+    "kernel",
+    "attribute-driven",
+    "auto-discovery",
+    "event-driven",
+    "dependency-injection",
+    "php-attributes",
+    "composer",
+    "flame",
+    "skeleton"
+  ],
+  "require": {
+    "php": ">=8.1",
+    "topthink/framework": "^8.0",
+    "hnraytek/flame-module-kernel": "^1.0.0"
+  },
+  "license": "Apache-2.0",
+  "autoload": {
+    "psr-4": {
+      "app\\": "app",
+      "FlameModule\\": "FlameModule"
+    }
+  },
+  "authors": [
+    {
+      "name": "haoshuaioo",
+      "email": "bbmu@qq.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "scripts": {
+    "post-create-project-cmd": [
+      "@php -r \"@mkdir('config/flame', 0755, true); @mkdir('FlameModule', 0755, true); @mkdir('runtime/log', 0755, true); @mkdir('runtime/cache', 0755, true);\"",
+      "echo 'Flame directories created.'"
+    ],
+    "pre-package-uninstall": [
+      "Flame\\scripts\\ModuleUninstallHandler::preUninstall"
+    ],
+    "post-autoload-dump": [
+      "@php think service:discover",
+      "@php think vendor:publish",
+      "@php think flame sync"
+    ],
+    "flame:modules": "@php think flame list",
+    "flame:sync": "@php think flame sync",
+    "flame:discover": "@php think flame discover"
+  }
+}
